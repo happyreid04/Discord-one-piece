@@ -1,0 +1,48 @@
+# Discord Activity Manifest
+# Place this in your Discord Developer Portal under "Activities"
+
+display:
+  name: "One Piece: Grand Line"
+  short_name: "OP Grand Line"
+  description: "An episodic cinematic adventure where you hunt for the One Piece, build your crew, and face the Fish Kingdom."
+  type: "activity"
+  platform: "web"
+
+images:
+  icon: "assets/icon.png"
+  splash: "assets/splash.png"
+  tile: "assets/tile.png"
+
+config:
+  activity_type: "embedded"
+  context: ["guild", "dm"]
+  default_permissions: 0
+
+urls:
+  activity_launch_url: "https://your-domain.com/index.html"
+  activity_preview_url: "https://your-domain.com/preview.html"
+  activity_config_url: "https://your-domain.com/config.json"
+
+capabilities:
+  - "VIDEO"
+  - "SOUND"
+  - "EMBEDDED"
+
+privacy:
+  required_permissions: ["identify"]
+  optional_permissions: ["guilds", "rpc"]
+
+supported_locales:
+  - "en-US"
+
+launch_parameters:
+  mode: "iframe"
+  size: "large"
+  allow_fullscreen: true
+  
+rpc:
+  enabled: true
+  features: ["getUser", "authorize"]
+
+analytics:
+  enabled: true
