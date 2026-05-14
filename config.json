@@ -1,0 +1,13 @@
+{
+  "name": "One Piece: Grand Line",
+  "short_name": "OP Grand Line",
+  "description": "An episodic cinematic adventure",
+  "version": "1.0.0",
+  "activity_launch_url": "/index.html",
+  "icon": "/assets/icon.png",
+  "splash": "/assets/splash.png",
+  "background_color": "#0a0a2a",
+  "theme_color": "#FFD700",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}
