@@ -1,0 +1,27 @@
+# Dockerfile for deployment
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy bot code
+COPY bot/ ./bot/
+COPY data/ ./data/
+
+# Copy web files (for serving)
+COPY web/ ./web/
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV DISCORD_BOT_TOKEN=""
+
+# Run the bot
+CMD ["python", "-m", "bot.main"]
