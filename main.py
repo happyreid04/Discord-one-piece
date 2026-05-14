@@ -1,39 +1,41 @@
 import discord
-from discord.ext import commands
-import asyncio
+from discord.ext import commands, tasks
 import logging
 import json
 import os
 from datetime import datetime
 from dotenv import load_dotenv
+import aiohttp
 
-# Load configuration
+# Load environment variables
 load_dotenv()
 
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='🏴‍☠️ [%(asctime)s] %(levelname)s: %(message)s',
-    datefmt='%H:%M:%S'
-)
+# ========== LOGGING SETUP ==========
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Bot configuration
-TOKEN = os.getenv('DISCORD_BOT_TOKEN')
-PREFIX = 'op!'  # One Piece command prefix
-
-# Bot setup
+# ========== BOT SETUP ==========
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
 
-bot = commands.Bot(command_prefix=PREFIX, intents=intents, help_command=None)
+bot = commands.Bot(command_prefix='op!', intents=intents)
 
-# Game state (temporary - will move to database later)
+# ========== GAME STATE ==========
 active_crews = {}
-episode_progress = {}
+player_data_file = 'data/players.json'
 
-# ========== EVENTS ==========
+def load_players():
+    """Load player data from JSON"""
+    if os.path.exists(player_data_file):
+        with open(player_data_file, 'r') as f:
+            return json.load(f)
+    return {}
+
+def save_players():
+    """Save player data to JSON"""
+    with open(player_data_file, 'w') as f:
+        json.dump(active_crews, f, indent=2)
 
 @bot.event
 async def on_ready():
@@ -105,6 +107,7 @@ async def start_game(ctx):
     embed.set_footer(text="Type op!continue to begin Episode 1")
     
     await ctx.send(embed=embed)
+    save_players()
     logger.info(f"New crew formed: {ctx.author.display_name}")
 
 @bot.command(name='crew')
@@ -119,116 +122,56 @@ async def show_crew(ctx):
     crew_data = active_crews[user_id]
     
     embed = discord.Embed(
-        title=f"⭐ {crew_data['captain']}'s CREW",
-        description=f"**Bounty:** {crew_data['bounty']:,} Berries",
-        color=0x00BFFF
-    )
-    
-    embed.add_field(name="⭐ The Star", value=f"{crew_data['crew']['star']['name']}\nRubber Fruit", inline=True)
-    embed.add_field(name="🛠️ Boat Builder", value=crew_data['crew']['boat_builder'], inline=True)
-    embed.add_field(name="🥷 Ninja", value=crew_data['crew']['ninja'], inline=True)
-    embed.add_field(name="🗺️ Map Drawer", value=crew_data['crew']['map_drawer'], inline=True)
-    embed.add_field(name="📍 Location", value=crew_data['location'], inline=True)
-    embed.add_field(name="📺 Episode", value=crew_data['episode'], inline=True)
-    embed.add_field(name="💎 Treasure", value=f"{crew_data['treasure_found']} pieces", inline=True)
-    
-    await ctx.send(embed=embed)
-
-@bot.command(name='continue', aliases=['next', 'play'])
-async def continue_game(ctx):
-    """Continue your adventure to the next scene"""
-    user_id = str(ctx.author.id)
-    
-    if user_id not in active_crews:
-        await ctx.send(f"❌ **{ctx.author.display_name}**, start your journey with `op!start`")
-        return
-    
-    ep = active_crews[user_id]['episode']
-    
-    # Episode routing
-    if ep == 1:
-        await episode_one(ctx, user_id)
-    elif ep == 2:
-        await episode_two(ctx, user_id)
-    else:
-        await ctx.send("🌊 **To be continued...** More episodes are being written!")
-
-@bot.command(name='bounty')
-async def check_bounty(ctx):
-    """Check your current bounty"""
-    user_id = str(ctx.author.id)
-    
-    if user_id not in active_crews:
-        await ctx.send("Start your journey with `op!start` first!")
-        return
-    
-    bounty = active_crews[user_id]['bounty']
-    rank = "Rookie" if bounty < 100000 else "Super Rookie" if bounty < 500000 else "Warlord Tier"
-    
-    embed = discord.Embed(
-        title="💰 BOUNTY POSTER 💰",
-        description=f"**{ctx.author.display_name}**\n{bounty:,} Berries",
-        color=0xFF0000
-    )
-    embed.add_field(name="Rank", value=rank, inline=True)
-    embed.set_footer(text="The World Government is watching...")
-    
-    await ctx.send(embed=embed)
-
-@bot.command(name='help')
-async def help_command(ctx):
-    """Show all commands"""
-    embed = discord.Embed(
-        title="🏴‍☠️ ONE PIECE BOT - COMMANDS 🏴‍☠️",
-        description="Your journey to find the One Piece begins here!",
-        color=0xFFD700
-    )
-    embed.add_field(name="op!start", value="Begin your adventure", inline=False)
-    embed.add_field(name="op!crew", value="View your crew", inline=False)
-    embed.add_field(name="op!continue", value="Continue the story", inline=False)
-    embed.add_field(name="op!bounty", value="Check your bounty", inline=False)
-    embed.add_field(name="op!help", value="Show this menu", inline=False)
-    embed.set_footer(text="⚡ More commands coming soon!")
-    
-    await ctx.send(embed=embed)
-
-# ========== EPISODE FUNCTIONS ==========
-
-async def episode_one(ctx, user_id):
-    """Episode 1: Setting Sail"""
-    crew = active_crews[user_id]
-    
-    embed = discord.Embed(
-        title="📺 EPISODE 1 - Setting Sail",
-        description="*The journey for the greatest treasure begins...*",
+        title=f"🏴‍☠️ {crew_data['captain']}'s Crew",
+        description=f"Location: {crew_data['location']} | Episode: {crew_data['episode']}",
         color=0xFF4500
     )
-    embed.add_field(
-        name="🌅 Dawn Island Docks",
-        value="You stand at the harbor, your small boat ready. The Boat Builder approaches you.",
-        inline=False
-    )
-    embed.add_field(
-        name="🛠️ Boat Builder",
-        value="*'Captain! The ship is ready. But where are we heading?'*",
-        inline=False
-    )
-    embed.add_field(
-        name="⭐ Your Response",
-        value="1️⃣ 'We're hunting the One Piece!'\n2️⃣ 'To the Grand Line!'\n3️⃣ 'First, we need a navigator...'",
-        inline=False
-    )
-    embed.set_footer(text="Type op!choose 1, 2, or 3 to continue")
+    embed.add_field(name="Captain", value=f"⭐ {crew_data['captain']} (You)", inline=False)
+    embed.add_field(name="Boat Builder", value=str(crew_data['crew']['boat_builder']), inline=True)
+    embed.add_field(name="Ninja", value=str(crew_data['crew']['ninja']), inline=True)
+    embed.add_field(name="Bounty", value=f"{crew_data['bounty']:,} Berries", inline=True)
     
     await ctx.send(embed=embed)
-    episode_progress[user_id] = {'step': 'ep1_choice1'}
 
-# ========== RUN THE BOT ==========
+# ========== LOAD COGS ==========
+
+async def load_cogs():
+    """Load all cogs from bot/cogs folder"""
+    cogs_path = 'bot/cogs'
+    if os.path.exists(cogs_path):
+        for filename in os.listdir(cogs_path):
+            if filename.endswith('.py') and filename != '__init__.py':
+                try:
+                    await bot.load_extension(f'bot.cogs.{filename[:-3]}')
+                    logger.info(f"✅ Loaded cog: {filename}")
+                except Exception as e:
+                    logger.error(f"❌ Failed to load cog {filename}: {e}")
+
+async def load_events():
+    """Load all event handlers from bot/events folder"""
+    events_path = 'bot/events'
+    if os.path.exists(events_path):
+        for filename in os.listdir(events_path):
+            if filename.endswith('.py') and filename != '__init__.py':
+                try:
+                    await bot.load_extension(f'bot.events.{filename[:-3]}')
+                    logger.info(f"✅ Loaded event: {filename}")
+                except Exception as e:
+                    logger.error(f"❌ Failed to load event {filename}: {e}")
+
+# ========== MAIN BOT RUN ==========
+
+async def main():
+    """Start the bot"""
+    async with bot:
+        await load_cogs()
+        await load_events()
+        token = os.getenv('DISCORD_TOKEN')
+        if not token:
+            logger.error("❌ DISCORD_TOKEN not found in .env file")
+            exit(1)
+        await bot.start(token)
 
 if __name__ == "__main__":
-    if not TOKEN:
-        logger.error("❌ DISCORD_BOT_TOKEN not found! Set it in .env file")
-        logger.info("Create .env file with: DISCORD_BOT_TOKEN=your_token_here")
-    else:
-        logger.info("🚀 Raising the anchor...")
-        bot.run(TOKEN)
+    import asyncio
+    asyncio.run(main())
