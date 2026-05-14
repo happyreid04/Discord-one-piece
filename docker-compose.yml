@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Discord Bot
+  bot:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile
+    container_name: one-piece-bot
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    networks:
+      - game-network
+
+  # Web Server (Discord Activity)
+  web:
+    build:
+      context: .
+      dockerfile: deploy/docker/Dockerfile.web
+    container_name: one-piece-web
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    networks:
+      - game-network
+
+  # Optional: Redis for session management
+  redis:
+    image: redis:alpine
+    container_name: one-piece-redis
+    restart: unless-stopped
+    networks:
+      - game-network
+
+networks:
+  game-network:
+    driver: bridge
