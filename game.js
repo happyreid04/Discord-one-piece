@@ -28,7 +28,7 @@ const EPISODES = {
         scenes: {
             start: {
                 id: 'start',
-                narrative: `🌅 **The sun rises over Dawn Island.**
+                narrative: ` **The sun rises over Dawn Island.**
 
 A young pirate wearing a straw hat stands at the dock, the wind catching their coat. Behind them, a sturdy ship bobs gently on the waves.
 
@@ -36,14 +36,14 @@ A young pirate wearing a straw hat stands at the dock, the wind catching their c
 
 The horizon stretches endlessly. Somewhere out there, the greatest treasure ever known waits.`,
                 choices: [
-                    { text: '🏴‍☠️ "We hunt the One Piece!"', nextScene: 'fishWarning', statChange: { bounty: 10000 } },
-                    { text: '🌊 "To the Grand Line!"', nextScene: 'fishWarning', statChange: { bounty: 5000 } },
-                    { text: '🗺️ "First, we need a navigator."', nextScene: 'needNavigator', statChange: {} }
+                    { text: ' "We hunt the One Piece!"', nextScene: 'fishWarning', statChange: { bounty: 10000 } },
+                    { text: ' "To the Grand Line!"', nextScene: 'fishWarning', statChange: { bounty: 5000 } },
+                    { text: ' "First, we need a navigator."', nextScene: 'needNavigator', statChange: {} }
                 ]
             },
             fishWarning: {
                 id: 'fishWarning',
-                narrative: `**🐟 A Fish Soldier emerges from the water!**
+                narrative: `** A Fish Soldier emerges from the water!**
 
 *"Turn back, human! The Fish Kingdom claims these waters! The One Piece belongs to our king!"*
 
@@ -51,9 +51,9 @@ The horizon stretches endlessly. Somewhere out there, the greatest treasure ever
 
 The creature lunges, razor-sharp scales glinting in the sunlight.`,
                 choices: [
-                    { text: '💪 "Gomu Gomu no Punch!" (Rubber powers)', nextScene: 'victory', statChange: { bounty: 25000 } },
-                    { text: '🥷 "Boat Builder, handle this!"', nextScene: 'victory', statChange: { bounty: 15000 } },
-                    { text: '🏃 "Retreat to the ship!"', nextScene: 'retreat', statChange: {} }
+                    { text: ' "Gomu Gomu no Punch!" (Rubber powers)', nextScene: 'victory', statChange: { bounty: 25000 } },
+                    { text: ' "Boat Builder, handle this!"', nextScene: 'victory', statChange: { bounty: 15000 } },
+                    { text: ' "Retreat to the ship!"', nextScene: 'retreat', statChange: {} }
                 ]
             },
             victory: {
@@ -62,11 +62,11 @@ The creature lunges, razor-sharp scales glinting in the sunlight.`,
 
 Your fist stretches impossibly far, slamming into the Fish Soldier. It spirals into the depths with a terrified shriek.
 
-**⭐ You:** *"That's just a taste. The Fish Kingdom knows we're coming now..."*
+** You:** *"That's just a taste. The Fish Kingdom knows we're coming now..."*
 
 The crew cheers. The first battle is won. But the real journey has just begun.`,
                 choices: [
-                    { text: '➡️ CONTINUE TO EPISODE 2', nextScene: 'episodeEnd', statChange: {} }
+                    { text: ' CONTINUE TO EPISODE 2', nextScene: 'episodeEnd', statChange: {} }
                 ]
             },
             retreat: {
@@ -75,25 +75,25 @@ The crew cheers. The first battle is won. But the real journey has just begun.`,
 
 The Fish Soldier laughs as you sail away.
 
-**🐟 Fish Soldier:** *"Run, little pirate! The Fish King will hear of this!"*
+** Fish Soldier:** *"Run, little pirate! The Fish King will hear of this!"*
 
 The crew looks worried. The bounty on your head might grow... but the adventure continues.`,
                 choices: [
-                    { text: '➡️ REGROUP AND CONTINUE', nextScene: 'episodeEnd', statChange: { bounty: -5000 } }
+                    { text: ' REGROUP AND CONTINUE', nextScene: 'episodeEnd', statChange: { bounty: -5000 } }
                 ]
             },
             needNavigator: {
                 id: 'needNavigator',
-                narrative: `**🛠️ Boat Builder:** *"Smart thinking, Captain. There's a town on the next island. I hear a legendary map drawer lives there..."*
+                narrative: `** Boat Builder:** *"Smart thinking, Captain. There's a town on the next island. I hear a legendary map drawer lives there..."*
 
 The sails catch the wind. A new destination appears on the horizon.`,
                 choices: [
-                    { text: '⛵ "Set course for that town!"', nextScene: 'episodeEnd', statChange: {} }
+                    { text: ' "Set course for that town!"', nextScene: 'episodeEnd', statChange: {} }
                 ]
             },
             episodeEnd: {
                 id: 'episodeEnd',
-                narrative: `**📺 END OF EPISODE 1**
+                narrative: `** END OF EPISODE 1**
 
 *To be continued...*
 
@@ -101,7 +101,7 @@ The crew sails toward the unknown, the Fish Kingdom in pursuit, and somewhere ou
 
 **Next Episode:** The Open Sea – New allies, new enemies, and the first clue to the One Piece.`,
                 choices: [
-                    { text: '🌊 PREPARE FOR EPISODE 2', nextScene: 'nextEpisode', statChange: {} }
+                    { text: ' PREPARE FOR EPISODE 2', nextScene: 'nextEpisode', statChange: {} }
                 ]
             }
         }
@@ -116,29 +116,29 @@ The crew sails toward the unknown, the Fish Kingdom in pursuit, and somewhere ou
 
 The sun beats down. The wind fills your sails. The Fish Kingdom hasn't been seen since the first encounter.
 
-**⭐ You:** *"Land? Anyone?"*
+** You:** *"Land? Anyone?"*
 
-**🛠️ Boat Builder:** *"Nothing yet, Captain. But the sea feels... strange."*
+** Boat Builder:** *"Nothing yet, Captain. But the sea feels... strange."*
 
 The water churns. Something large swims beneath.`,
                 choices: [
-                    { text: '🔍 "Everyone on alert!"', nextScene: 'seaKing', statChange: {} },
-                    { text: '🎣 "Let\'s fish. I\'m hungry."', nextScene: 'fishCatches', statChange: {} }
+                    { text: ' "Everyone on alert!"', nextScene: 'seaKing', statChange: {} },
+                    { text: ' "Let\'s fish. I\'m hungry."', nextScene: 'fishCatches', statChange: {} }
                 ]
             },
             seaKing: {
                 id: 'seaKing',
-                narrative: `**🐉 A SEA KING erupts from the water!**
+                narrative: `** A SEA KING erupts from the water!**
 
 *"ROOOOAR!"* It's massive – bigger than your entire ship!
 
-**🥷 (If recruited):** *"Captain! What do we do?!"*
+** (If recruited):** *"Captain! What do we do?!"*
 
 The creature's eyes lock onto you. This is no ordinary fish.`,
                 choices: [
-                    { text: '💪 Stretch and punch it!', nextScene: 'seaKingEscape', statChange: { bounty: 50000 } },
-                    { text: '🏃 Outrun it!', nextScene: 'seaKingEscape', statChange: {} },
-                    { text: '🤝 Try to communicate', nextScene: 'seaKingFriendly', statChange: {} }
+                    { text: ' Stretch and punch it!', nextScene: 'seaKingEscape', statChange: { bounty: 50000 } },
+                    { text: 'Outrun it!', nextScene: 'seaKingEscape', statChange: {} },
+                    { text: 'Try to communicate', nextScene: 'seaKingFriendly', statChange: {} }
                 ]
             },
             seaKingEscape: {
@@ -147,50 +147,50 @@ The creature's eyes lock onto you. This is no ordinary fish.`,
 
 The Sea King dives back into the depths, wounded but alive.
 
-**⭐ You:** *"That was too close... We need to get stronger."*
+**You:** *"That was too close... We need to get stronger."*
 
 A small island appears on the horizon. Smoke rises from a town.`,
                 choices: [
-                    { text: '🏝️ Head to the island', nextScene: 'episodeEnd', statChange: {} }
+                    { text: 'Head to the island', nextScene: 'episodeEnd', statChange: {} }
                 ]
             },
             seaKingFriendly: {
                 id: 'seaKingFriendly',
-                narrative: `**🐉 Sea King:** *"...You're not afraid of me?"*
+                narrative: `** Sea King:** *"...You're not afraid of me?"*
 
 It speaks! This Sea King is intelligent. 
 
-**🐉 Sea King:** *"The Map Drawer you seek... she lives on the hidden island of Cartographia. I will take you there."*`,
+** Sea King:** *"The Map Drawer you seek... she lives on the hidden island of Cartographia. I will take you there."*`,
                 choices: [
-                    { text: '🗺️ "Take us there, friend!"', nextScene: 'episodeEnd', statChange: { bounty: 30000 } }
+                    { text: ' "Take us there, friend!"', nextScene: 'episodeEnd', statChange: { bounty: 30000 } }
                 ]
             },
             fishCatches: {
                 id: 'fishCatches',
-                narrative: `**⭐ You:** *"Not bad, Boat Builder!"* 
+                narrative: `** You:** *"Not bad, Boat Builder!"* 
 
-**🐟 Fish Soldier (in the catch):** *"...You caught me. Please don't eat me. I can tell you about the Fish Kingdom..."* 
+** Fish Soldier (in the catch):** *"...You caught me. Please don't eat me. I can tell you about the Fish Kingdom..."* 
 
 The Fish Soldier trembles, clearly terrified.`,
                 choices: [
-                    { text: '🗣️ "Talk. Now."', nextScene: 'fishIntel', statChange: {} },
-                    { text: '🍳 "Dinner is dinner."', nextScene: 'episodeEnd', statChange: { bounty: -5000 } }
+                    { text: ' "Talk. Now."', nextScene: 'fishIntel', statChange: {} },
+                    { text: ' "Dinner is dinner."', nextScene: 'episodeEnd', statChange: { bounty: -5000 } }
                 ]
             },
             fishIntel: {
                 id: 'fishIntel',
-                narrative: `**🐟 Fish Soldier:** *"The Fish King wants the One Piece. He has half a map. Your crew has the other half – with the Map Drawer... but you haven't found her yet. Find her before he does!"*
+                narrative: `** Fish Soldier:** *"The Fish King wants the One Piece. He has half a map. Your crew has the other half – with the Map Drawer... but you haven't found her yet. Find her before he does!"*
 
 The Fish Soldier dives overboard and disappears.
 
 The crew exchanges worried glances.`,
                 choices: [
-                    { text: '🏃 "We sail faster!"', nextScene: 'episodeEnd', statChange: {} }
+                    { text: ' "We sail faster!"', nextScene: 'episodeEnd', statChange: {} }
                 ]
             },
             episodeEnd: {
                 id: 'episodeEnd',
-                narrative: `**📺 END OF EPISODE 2**
+                narrative: `** END OF EPISODE 2**
 
 *To be continued...*
 
@@ -198,12 +198,12 @@ The Map Drawer is out there. The Fish Kingdom is closer than ever.
 
 **Next Episode:** The Map Drawer – A mysterious cartographer joins the crew as the race for the One Piece intensifies.`,
                 choices: [
-                    { text: '🗺️ CONTINUE TO EPISODE 3 (Coming Soon)', nextScene: 'comingSoon', statChange: {} }
+                    { text: ' CONTINUE TO EPISODE 3 (Coming Soon)', nextScene: 'comingSoon', statChange: {} }
                 ]
             },
             comingSoon: {
                 id: 'comingSoon',
-                narrative: `**🌊 TO BE CONTINUED...**
+                narrative: `** TO BE CONTINUED...**
 
 Episode 3: The Map Drawer is in development!
 
@@ -298,7 +298,7 @@ async function loadScene(episodeNum, sceneId) {
     
     // Update UI
     document.getElementById('episodeTitle').innerHTML = `EPISODE ${episodeNum}: ${episode.title}`;
-    document.getElementById('sceneLocation').innerHTML = `📍 ${episode.location}`;
+    document.getElementById('sceneLocation').innerHTML = `  ${episode.location}`;
     document.getElementById('narrativeText').innerHTML = scene.narrative;
     document.getElementById('bountyStatus').innerHTML = `${gameState.player.bounty.toLocaleString()} Berries`;
     document.getElementById('episodeStatus').innerHTML = `Ep ${episodeNum}`;
@@ -419,7 +419,7 @@ async function initDiscord() {
             const user = await discordSdk.commands.getUser();
             if (user && user.username) {
                 gameState.player.name = user.username;
-                document.getElementById('episodeTitle').innerHTML = `⭐ ${user.username}'S JOURNEY`;
+                document.getElementById('episodeTitle').innerHTML = ` ${user.username}'S JOURNEY`;
             }
         } catch (e) {
             console.log('Discord SDK error:', e);
