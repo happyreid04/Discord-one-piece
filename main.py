@@ -40,21 +40,21 @@ def save_players():
 @bot.event
 async def on_ready():
     """Bot is alive and sailing"""
-    logger.info(f"⚓ {bot.user} HAS SET SAIL FOR THE GRAND LINE!")
-    logger.info(f"🌊 Serving {len(bot.guilds)} guilds")
+    logger.info(f" {bot.user} HAS SET SAIL FOR THE GRAND LINE!")
+    logger.info(f" Serving {len(bot.guilds)} guilds")
     
     # Set bot status
     await bot.change_presence(
         activity=discord.Activity(
             type=discord.ActivityType.watching,
-            name="🌊 The One Piece | op!help"
+            name=" The One Piece | op!help"
         )
     )
     
     # Sync slash commands
     try:
         synced = await bot.tree.sync()
-        logger.info(f"⚡ Synced {len(synced)} slash commands")
+        logger.info(f" Synced {len(synced)} slash commands")
     except Exception as e:
         logger.error(f"Slash sync failed: {e}")
 
@@ -62,12 +62,12 @@ async def on_ready():
 async def on_command_error(ctx, error):
     """Handle errors gracefully"""
     if isinstance(error, commands.CommandNotFound):
-        await ctx.send("❓ That's not a known command. Try `op!help`")
+        await ctx.send(" That's not a known command. Try `op!help`")
     elif isinstance(error, commands.MissingPermissions):
-        await ctx.send("🔒 You don't have permission for that.")
+        await ctx.send("You don't have permission for that.")
     else:
         logger.error(f"Command error: {error}")
-        await ctx.send("💀 Something went wrong. Our shipwright is fixing it.")
+        await ctx.send(" Something went wrong. Our shipwright is fixing it.")
 
 # ========== CORE COMMANDS ==========
 
@@ -103,7 +103,7 @@ async def start_game(ctx):
     embed.add_field(name="Crew Name", value="The Straw Hearts", inline=True)
     embed.add_field(name="Location", value="Dawn Island", inline=True)
     embed.add_field(name="Episode", value="1 - Setting Sail", inline=False)
-    embed.add_field(name="Current Crew", value="⭐ The Star (You)\n❌ Boat Builder (missing)\n❌ Ninja (missing)\n❓ Map Drawer (unknown)", inline=False)
+    embed.add_field(name="Current Crew", value=" The Star (You)\nBoat Builder (missing)\nNinja (missing)\n Map Drawer (unknown)", inline=False)
     embed.set_footer(text="Type op!continue to begin Episode 1")
     
     await ctx.send(embed=embed)
@@ -116,7 +116,7 @@ async def show_crew(ctx):
     user_id = str(ctx.author.id)
     
     if user_id not in active_crews:
-        await ctx.send(f"❌ **{ctx.author.display_name}**, you haven't started your journey yet. Type `op!start` first!")
+        await ctx.send(f"**{ctx.author.display_name}**, you haven't started your journey yet. Type `op!start` first!")
         return
     
     crew_data = active_crews[user_id]
@@ -126,7 +126,7 @@ async def show_crew(ctx):
         description=f"Location: {crew_data['location']} | Episode: {crew_data['episode']}",
         color=0xFF4500
     )
-    embed.add_field(name="Captain", value=f"⭐ {crew_data['captain']} (You)", inline=False)
+    embed.add_field(name="Captain", value=f" {crew_data['captain']} (You)", inline=False)
     embed.add_field(name="Boat Builder", value=str(crew_data['crew']['boat_builder']), inline=True)
     embed.add_field(name="Ninja", value=str(crew_data['crew']['ninja']), inline=True)
     embed.add_field(name="Bounty", value=f"{crew_data['bounty']:,} Berries", inline=True)
@@ -143,9 +143,9 @@ async def load_cogs():
             if filename.endswith('.py') and filename != '__init__.py':
                 try:
                     await bot.load_extension(f'bot.cogs.{filename[:-3]}')
-                    logger.info(f"✅ Loaded cog: {filename}")
+                    logger.info(f" Loaded cog: {filename}")
                 except Exception as e:
-                    logger.error(f"❌ Failed to load cog {filename}: {e}")
+                    logger.error(f" Failed to load cog {filename}: {e}")
 
 async def load_events():
     """Load all event handlers from bot/events folder"""
@@ -155,9 +155,9 @@ async def load_events():
             if filename.endswith('.py') and filename != '__init__.py':
                 try:
                     await bot.load_extension(f'bot.events.{filename[:-3]}')
-                    logger.info(f"✅ Loaded event: {filename}")
+                    logger.info(f" Loaded event: {filename}")
                 except Exception as e:
-                    logger.error(f"❌ Failed to load event {filename}: {e}")
+                    logger.error(f" Failed to load event {filename}: {e}")
 
 # ========== MAIN BOT RUN ==========
 
@@ -168,7 +168,7 @@ async def main():
         await load_events()
         token = os.getenv('DISCORD_TOKEN')
         if not token:
-            logger.error("❌ DISCORD_TOKEN not found in .env file")
+            logger.error(" DISCORD_TOKEN not found in .env file")
             exit(1)
         await bot.start(token)
 
