@@ -1,7 +1,7 @@
 .PHONY: help install run-bot run-web docker-up docker-down deploy-tunnel
 
 help:
-	@echo "🏴‍☠️ One Piece Game Commands"
+	@echo "  one Piece Game Commands"
 	@echo "  make install     - Install Python dependencies"
 	@echo "  make run-bot     - Run Discord bot locally"
 	@echo "  make run-web     - Serve web files locally"
