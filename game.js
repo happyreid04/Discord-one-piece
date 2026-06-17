@@ -32,7 +32,7 @@ const EPISODES = {
 
 A young pirate wearing a straw hat stands at the dock, the wind catching their coat. Behind them, a sturdy ship bobs gently on the waves.
 
-**🛠️ Boat Builder:** *"Captain! The ship is ready. But... where exactly are we heading?"*
+** Boat Builder:** *"Captain! The ship is ready. But... where exactly are we heading?"*
 
 The horizon stretches endlessly. Somewhere out there, the greatest treasure ever known waits.`,
                 choices: [
@@ -47,7 +47,7 @@ The horizon stretches endlessly. Somewhere out there, the greatest treasure ever
 
 *"Turn back, human! The Fish Kingdom claims these waters! The One Piece belongs to our king!"*
 
-**⚔️ COMBAT INITIATED!**
+** COMBAT INITIATED!**
 
 The creature lunges, razor-sharp scales glinting in the sunlight.`,
                 choices: [
