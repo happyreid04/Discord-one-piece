@@ -13,7 +13,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "name": "sail",
-    "description": "⭐ Begin your One Piece adventure",
+    "description": " Begin your One Piece adventure",
     "type": 1
   }' \
   "https://discord.com/api/v10/applications/$CLIENT_ID/commands"
@@ -24,7 +24,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "name": "crew",
-    "description": "⭐ View your current crew",
+    "description": " View your current crew",
     "type": 1
   }' \
   "https://discord.com/api/v10/applications/$CLIENT_ID/commands"
@@ -35,7 +35,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "name": "continue",
-    "description": "📺 Continue the story",
+    "description": " Continue the story",
     "type": 1
   }' \
   "https://discord.com/api/v10/applications/$CLIENT_ID/commands"
@@ -46,7 +46,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "name": "bounty",
-    "description": "💰 Check your bounty",
+    "description": " Check your bounty",
     "type": 1
   }' \
   "https://discord.com/api/v10/applications/$CLIENT_ID/commands"
@@ -57,9 +57,9 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "name": "episodes",
-    "description": "📺 List all episodes",
+    "description": " List all episodes",
     "type": 1
   }' \
   "https://discord.com/api/v10/applications/$CLIENT_ID/commands"
 
-echo "✅ Slash commands registered!"
+echo " Slash commands registered!"
